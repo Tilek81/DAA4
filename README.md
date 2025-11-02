@@ -13,35 +13,35 @@ These algorithms are used for task scheduling, detecting circular dependencies, 
 
 Project Structure
 graph-algorithms/
-├── data/                             # Input data files
-│   ├── small_dag_1.json
-│   ├── small_cycle_1.json
-│   ├── small_mixed_1.json
-│   ├── medium_dag_1.json
-│   ├── medium_scc_1.json
-│   ├── medium_dense_1.json
-│   ├── large_dag_1.json
-│   ├── large_scc_1.json
-│   └── large_dense_1.json
+├── data/                            # Input data files
+│   ├── small_dag_1.json           
+│   ├── small_cycle_1.json         
+│   ├── small_mixed_1.json         
+│   ├── medium_dag_1.json          
+│   ├── medium_scc_1.json          
+│   ├── medium_dense_1.json        
+│   ├── large_dag_1.json           
+│   ├── large_scc_1.json           
+│   └── large_dense_1.json         
 │
 ├── src/                              # Source code
 │   ├── main/java/
-│   │   ├── Main.java                  # Main program entry point
+│   │   ├── Main.java                # Main program entry point
 │   │   └── graph/
 │   │       ├── common/
-│   │       │   ├── Graph.java         # Graph representation
-│   │       │   ├── Metrics.java       # Metrics tracking
-│   │       │   ├── DataLoader.java    # Data loading utilities
+│   │       │   ├── Graph.java       # Graph representation
+│   │       │   ├── Metrics.java     # Metrics tracking
+│   │       │   ├── DataLoader.java  # Data loading utilities
 │   │       │   └── DatasetGenerator.java # Dataset generation
 │   │       ├── scc/
-│   │       │   └── TarjanSCC.java     # Tarjan's algorithm for SCC
+│   │       │   └── TarjanSCC.java   # Tarjan's algorithm for SCC
 │   │       ├── topo/
 │   │       │   └── TopologicalSort.java # Kahn's topological sort
 │   │       └── dagsp/
-│   │           └── DAGShortestPath.java  # Shortest path in DAGs
+│   │           ├── DAGShortestPath.java  # Shortest path in DAGs
 │   │           └── DAGLongestPath.java   # Longest (Critical) path in DAGs
 │   └── test/java/
-│       └── GraphAlgorithmsTest.java   # JUnit test cases
+│       └── GraphAlgorithmsTest.java     # JUnit test cases
 │
 ├── pom.xml                           # Maven configuration
 └── README.md                         # Project documentation
@@ -65,11 +65,11 @@ mvn clean compile
 mvn exec:java -Dexec.mainClass="graph.common.DatasetGenerator"
 
 
-This creates 9 JSON files in the data/ folder.
+This will create 9 JSON files in the data/ folder.
 
 Step 3: Run Main Application
 
-To run the main application and process all datasets, use:
+To process all datasets, run the main application:
 
 mvn exec:java -Dexec.mainClass="Main"
 
@@ -93,7 +93,7 @@ To run the test suite:
 mvn test
 
 
-This runs 9 JUnit tests covering various graph scenarios.
+This will run 9 JUnit tests covering various graph scenarios.
 
 Dataset Description
 Small Datasets (6-10 nodes)
@@ -196,10 +196,12 @@ Conclusion
 
 This implementation demonstrates:
 
-Algorithmic Correctness: All algorithms produce correct results across various graph structures.
+Algorithmic Correctness: All algorithms produce correct results on diverse graph structures.
 
-Efficiency: All operations achieve O(V + E) time complexity.
+Efficiency: O(V + E) time complexity achieved for all operations.
 
-Scalability: The project can handle graphs ranging from 6 to 40+ vertices efficiently.
+Scalability: Handles graphs from 6 to 40+ vertices efficiently.
 
-Robustness: The system handles edge cases such as empty graphs, cycles, and disconnected components.
+Robustness: Proper handling of edge cases (empty graphs, cycles, disconnected components).
+
+Practical Utility: Applicable to real-world scheduling problems.
