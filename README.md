@@ -46,59 +46,6 @@ graph-algorithms/
 ├── pom.xml                         
 └── README.md
 
-Requirements
-
-Java 11 or higher
-
-Maven 3.6+
-
-JUnit 5.9.3 (included in pom.xml)
-
-Gson 2.10.1 (included in pom.xml)
-
-Building and Running
-Step 1: Clone Repository
-git clone <your-repository-url>
-cd graph-algorithms
-
-Step 2: Generate Datasets
-
-Run the following Maven commands to generate datasets:
-
-mvn clean compile
-mvn exec:java -Dexec.mainClass="graph.common.DatasetGenerator"
-
-
-This creates 9 JSON files in the data/ folder.
-
-Step 3: Run Main Application
-
-Run the main application to process the datasets:
-
-mvn exec:java -Dexec.mainClass="Main"
-
-
-This processes all datasets and outputs the following:
-
-Strongly Connected Components (SCC)
-
-Topological ordering of SCCs
-
-Shortest paths from the first SCC
-
-Critical path (longest path)
-
-Performance metrics for each algorithm
-
-Step 4: Run Tests
-
-To run the test suite:
-
-mvn test
-
-
-This runs 9 JUnit tests covering various graph scenarios.
-
 Dataset Description
 Small Datasets (6-10 nodes)
 Dataset	Nodes	Edges	Type	Description
@@ -264,13 +211,3 @@ Scalability: Handles graphs from 6 to 40+ vertices efficiently.
 Robustness: Proper handling of edge cases (empty graphs, cycles, disconnected components).
 
 Practical Utility: Applicable to real-world scheduling problems.
-
-Key Takeaways
-
-Graph structure matters: Density and SCC count impact performance.
-
-Preprocessing pays off: SCC compression simplifies downstream operations.
-
-Linear scalability: All algorithms maintain O(V + E) complexity.
-
-Tool selection: Choose algorithms based on graph characteristics.
