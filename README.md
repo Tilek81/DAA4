@@ -1,4 +1,4 @@
-DAA4 — Graph Algorithms for Task Scheduling
+Graph Algorithms for Task Scheduling
 Project Overview
 
 This project implements three fundamental graph algorithms for task scheduling in smart city/campus environments where dependencies may contain cycles:
@@ -9,42 +9,42 @@ Topological Sorting - Kahn's Algorithm
 
 Shortest/Longest Paths in DAGs - Dynamic Programming on Topological Order
 
-These algorithms are used for task scheduling, detecting circular dependencies, and finding critical paths in DAGs (Directed Acyclic Graphs).
+These algorithms are used for task scheduling, detecting circular dependencies, and finding critical paths in Directed Acyclic Graphs (DAGs).
 
 Project Structure
 graph-algorithms/
+├── data/                             # Input data files
+│   ├── small_dag_1.json
+│   ├── small_cycle_1.json
+│   ├── small_mixed_1.json
+│   ├── medium_dag_1.json
+│   ├── medium_scc_1.json
+│   ├── medium_dense_1.json
+│   ├── large_dag_1.json
+│   ├── large_scc_1.json
+│   └── large_dense_1.json
 │
-├── data/                           
-│   ├── small_dag_1.json           
-│   ├── small_cycle_1.json         
-│   ├── small_mixed_1.json         
-│   ├── medium_dag_1.json          
-│   ├── medium_scc_1.json          
-│   ├── medium_dense_1.json        
-│   ├── large_dag_1.json           
-│   ├── large_scc_1.json           
-│   └── large_dense_1.json         
-│
-├── src/
+├── src/                              # Source code
 │   ├── main/java/
-│   │   ├── Main.java              
+│   │   ├── Main.java                  # Main program entry point
 │   │   └── graph/
 │   │       ├── common/
-│   │       │   ├── Graph.java              
-│   │       │   ├── Metrics.java            
-│   │       │   ├── DataLoader.java         
-│   │       │   └── DatasetGenerator.java   
+│   │       │   ├── Graph.java         # Graph representation
+│   │       │   ├── Metrics.java       # Metrics tracking
+│   │       │   ├── DataLoader.java    # Data loading utilities
+│   │       │   └── DatasetGenerator.java # Dataset generation
 │   │       ├── scc/
-│   │       │   └── TarjanSCC.java          
+│   │       │   └── TarjanSCC.java     # Tarjan's algorithm for SCC
 │   │       ├── topo/
-│   │       │   └── TopologicalSort.java    
+│   │       │   └── TopologicalSort.java # Kahn's topological sort
 │   │       └── dagsp/
-│   │           └── DAGShortestPath.java    
+│   │           └── DAGShortestPath.java  # Shortest path in DAGs
+│   │           └── DAGLongestPath.java   # Longest (Critical) path in DAGs
 │   └── test/java/
-│       └── GraphAlgorithmsTest.java        
+│       └── GraphAlgorithmsTest.java   # JUnit test cases
 │
-├── pom.xml                         
-└── README.md
+├── pom.xml                           # Maven configuration
+└── README.md                         # Project documentation
 
 Requirements
 
@@ -52,11 +52,7 @@ Java 11 or higher
 
 Maven 3.6+
 
-JUnit 5.9.3 (included in pom.xml)
-
-Gson 2.10.1 (included in pom.xml)
-
-Building and Running
+How to Run
 Step 1: Clone Repository
 git clone <your-repository-url>
 cd graph-algorithms
@@ -73,12 +69,12 @@ This creates 9 JSON files in the data/ folder.
 
 Step 3: Run Main Application
 
-Run the main application to process the datasets:
+To run the main application and process all datasets, use:
 
 mvn exec:java -Dexec.mainClass="Main"
 
 
-This processes all datasets and outputs the following:
+This will output:
 
 Strongly Connected Components (SCC)
 
@@ -115,18 +111,10 @@ Dataset	Nodes	Edges	Type	Description
 large_dag_1	25	50	DAG	Large sparse DAG
 large_scc_1	35	100	Cyclic	Multiple large SCCs
 large_dense_1	40	180	Cyclic	Dense complex graph
-All datasets include:
-
-Node IDs and task names
-
-Edge weights (1-6 units) representing duration/cost
-
-Mix of sparse (density < 0.3) and dense (density > 0.4) structures
-
-Algorithm Details
+Algorithms
 1. Tarjan's SCC Algorithm
 
-Purpose: Identifies strongly connected components (cycles) in directed graphs
+Purpose: Identifies strongly connected components (cycles) in directed graphs.
 
 Time Complexity: O(V + E)
 
@@ -140,9 +128,11 @@ Uses low-link values to detect cycles
 
 Builds condensation DAG from SCCs
 
+Implementation: TarjanSCC.java
+
 2. Kahn's Topological Sort
 
-Purpose: Orders tasks respecting dependencies (works only on DAGs)
+Purpose: Orders tasks respecting dependencies (works only on DAGs).
 
 Time Complexity: O(V + E)
 
@@ -156,9 +146,11 @@ Uses in-degree counting
 
 Returns null if cycle detected
 
+Implementation: TopologicalSort.java
+
 3. DAG Shortest/Longest Paths
 
-Purpose: Finds optimal paths for scheduling and critical path analysis
+Purpose: Finds optimal paths for scheduling and critical path analysis.
 
 Time Complexity: O(V + E)
 
@@ -172,7 +164,7 @@ Single pass for all distances from source
 
 Supports both shortest and longest path queries
 
-Uses edge weights for path computation
+Implementation: DAGShortestPath.java
 
 Performance Metrics
 
@@ -200,77 +192,14 @@ medium_dense_1	18	60	6	0.712	0.389	0.445
 large_dag_1	25	50	25	0.623	0.341	0.398
 large_scc_1	35	100	15	1.234	0.687	0.789
 large_dense_1	40	180	10	2.145	1.234	1.456
-Observation Analysis
+Conclusion
 
-Time Complexity Validation:
-All algorithms show linear scaling with respect to V + E.
+This implementation demonstrates:
 
-Effect of Graph Density:
-Sparse graphs (density < 0.3) are faster with fewer edge traversals, while dense graphs (density > 0.4) require more traversals and thus take longer.
+Algorithmic Correctness: All algorithms produce correct results across various graph structures.
 
-Impact of Strongly Connected Components:
-Graphs with fewer large SCCs simplify the DAG and improve task ordering efficiency.
+Efficiency: All operations achieve O(V + E) time complexity.
 
-Algorithm-Specific Bottlenecks:
+Scalability: The project can handle graphs ranging from 6 to 40+ vertices efficiently.
 
-SCC Detection: Bottleneck occurs during edge traversals in dense graphs.
-
-Topological Sort: Queue operations are the bottleneck in graphs with many vertices.
-
-DAG Shortest Paths: Relaxation operations take more time in dense graphs.
-
-Practical Recommendations
-
-When to Use SCC Detection: For detecting cycles, deadlock detection, and simplifying cyclic graphs.
-
-When to Use Topological Sort: For task scheduling, course scheduling, and data processing pipelines.
-
-When to Use DAG Shortest/Longest Paths: For critical path method, resource optimization, and program evaluation techniques (PERT).
-
-Testing
-
-The test suite includes:
-
-testSimpleDAG: Validates basic topological sorting.
-
-testSingleSCC: Validates cycle detection in a strongly connected graph.
-
-testMultipleSCCs: Tests detection of multiple SCCs.
-
-testShortestPath: Ensures correctness of shortest path calculation.
-
-testLongestPath: Validates longest (critical) path calculation.
-
-testCycleDetection: Verifies topological sorting on cyclic graphs.
-
-testEmptyGraph: Tests edge case handling.
-
-testSingleVertex: Validates minimal graphs.
-
-testDisconnectedGraph: Tests handling of multiple components.
-
-All tests pass with 100% success rate.
-
-Conclusions
-
-This implementation successfully demonstrates:
-
-Algorithmic Correctness: All algorithms produce correct results across diverse graph structures.
-
-Efficiency: Achieves O(V + E) time complexity for all operations.
-
-Scalability: Handles graphs from 6 to 40+ vertices efficiently.
-
-Robustness: Proper handling of edge cases (empty graphs, cycles, disconnected components).
-
-Practical Utility: Applicable to real-world scheduling problems.
-
-Key Takeaways
-
-Graph structure matters: Density and SCC count impact performance.
-
-Preprocessing pays off: SCC compression simplifies downstream operations.
-
-Linear scalability: All algorithms maintain O(V + E) complexity.
-
-Tool selection: Choose algorithms based on graph characteristics.
+Robustness: The system handles edge cases such as empty graphs, cycles, and disconnected components.
